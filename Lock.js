@@ -1,7 +1,7 @@
 
 var app = require('express')();
 var path = require('path')
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var five = require("johnny-five");
 var TestRPC = require("ethereumjs-testrpc");
@@ -47,12 +47,13 @@ var board = new five.Board({
 
 var Led; 
 var Relay;
-
+//var server = app.listen(3000);
+/*
 server.listen(process.env.PORT || 3000, function () {
 	console.log('listening on *:3000');
 });
-
-//server.listen(3000);
+*/
+server.listen(3000);
 
 
 // ?a=address

@@ -6,7 +6,9 @@
 	<title>Lock</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script> 
+	<!-- <script src="/socket.io/socket.io.js"></script>  -->
+	<script type="text/javascript" src='http://localhost:3000/socket.io/socket.io.js'></script>
+	 <!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
 	<script src="./js/index.js"></script>
 	<style>
 		.container {
@@ -122,8 +124,9 @@
 $(document).ready(function(){
 
 
-
-  var socket = io.connect('http://localhost');
+	// var origin = window.location.origin;
+	// var socket = io.connect(origin);
+   var socket = io.connect('http://localhost:3000');
   socket.on('news', function (data) {
  	
 	LockButton.on('click',function(){
