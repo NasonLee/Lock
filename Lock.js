@@ -171,8 +171,8 @@ app.post('/transfer', function (req, res) {
 				Relay.off();
 				setTimeout(function() {
    					Relay.on();
-   					Led.off();	  
-				}, 300);
+   						  
+				}, 3000);
 				 
 				
 				// 並回傳 json
@@ -193,31 +193,7 @@ app.get('/', function (req, res) {
 app.use(function (req, res) {
 	res.status(404).send('not found')
 })
-/*
- board.on("ready", function () {
-		console.log("board ready");
 
-		Led = new five.Led(13);
-		Relay = new five.Relay(8);
-
-		// init
-		Led.off();
-		Relay.off();
-		let button = document.getElementById("UnlockButton");
-		button.addEventListener('click', () => {
-  			Led.on();
-			Relay.off();
-		});
-		
-	/*	$('#LockButton').on('click',function(){
-			Led.off();
-			Relay.on();
-
-		})
-
-
-});
-*/
  
 board.on("ready", function () {
 	console.log("board ready");
@@ -226,11 +202,14 @@ board.on("ready", function () {
 	Relay = new five.Relay(8);
 
 	// init
-	Led.off();
+	Led.on();
 	Relay.on();
 
 	io.on('connection', function (socket) {
 		socket.emit('news', 'hi');
+		socket.on('End',function(t){
+				Led.off();
+			})
 		socket.on('event', function (data) {
 	
 			var message;

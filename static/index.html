@@ -32,6 +32,8 @@
 	<h5 id="ethBalance">以太帳戶餘額 (wei): </h5>
 	<h5 id="bankBalance">銀行合約餘額 (wei): </h5>
 	<hr>
+	<button id="EndButton" class="button" type="button" style="vertical-align:middle">
+		<span>交易結束</span></button>
 
 	<button id="UnlockButton" class="button" type="button" style="vertical-align:middle">
 		<span>開鎖</span></button>
@@ -54,6 +56,7 @@
 		<input id="transferTo" type="text" placeholder="請輸入轉帳對象">
 		<input id="transferEtherValue" type="number" placeholder="請輸入轉帳額度 (ether)">
 
+	
 	<h4>log : </h4>
 	<pre id="logger"></pre>
 	<!--// 用來 log 於 底部-->
@@ -124,28 +127,34 @@
 $(document).ready(function(){
 
 
-	// var origin = window.location.origin;
-	// var socket = io.connect(origin);
+	
    var socket = io.connect('http://localhost:3000');
   socket.on('news', function (data) {
  	
 	LockButton.on('click',function(){
-		//lock = 0;
-		//tran();
-		socket.emit('event', { my: 'data' });
-		log("上鎖");
-		console.log("lock");
-	})
+		
+		socket.emit('event', 1);
+		
+	
+	});
 	UnlockButton.on('click',function(){
-		//lock = 1;
-		//tran();
-		socket.emit('event', { my: 'data' });
-		log("開鎖");
-		console.log("unlock");
-	})
-    console.log(data);
-    
-    socket.emit('event', { my: 'data' });
+		
+		socket.emit('event', 0);
+		
+		
+	});
+	EndButton.on('click',function(){
+		
+		socket.emit('End', 0);
+		location.href='End.html'
+		
+	});
+
+
+    socket.on('log',function (message){
+    	log(message);
+    });
+
   });
 
   function log(input) {

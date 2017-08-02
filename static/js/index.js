@@ -9,6 +9,7 @@ var transferEtherValue
 var transferButton
 var UnlockButton
 var LockButton
+var EndButton
 var deposit
 var depositButton
 var withdraw
@@ -91,25 +92,26 @@ $(function () {
 	bankBalance = $('#bankBalance')
 	LockButton = $('#LockButton')
 	UnlockButton = $('#UnlockButton')
+	EndButton = $('#EndButton')
 	deposit = $('#deposit')
 	depositButton = $('#depositButton')
 	withdraw = $('#withdraw')
 	withdrawButton = $('#withdrawButton')
 	
-	console.log("test");
+	
 
-	LockButton.on('click',function(){
-		lock = 0;
-		//tran();
-		log("上鎖");
-		console.log("lock");
-	})
-	UnlockButton.on('click',function(){
-		lock = 1;
-		//tran();
-		log("開鎖");
-		console.log("unlock");
-	})
+	// LockButton.on('click',function(){
+	// 	lock = 0;
+	// 	//tran();
+	// 	log("上鎖");
+	// 	console.log("lock");
+	// })
+	// UnlockButton.on('click',function(){
+	// 	lock = 1;
+	// 	//tran();
+	// 	log("開鎖");
+	// 	console.log("unlock");
+	// })
 	whoamiButton.on('click', function () {
 		// GET account?a=address
 		GET('./account?a=' + whoami.val(),
@@ -187,56 +189,8 @@ $(function () {
 				log('請檢查帳戶及銀行合約餘額')
 			})
 	})
-/*
-	board.on("ready", function () {
-		console.log("board ready");
 
-		Led = new five.Led(13);
-		Relay = new five.Relay(8);
-
-		// init
-		Led.off();
-		Relay.off();
-		UnlockButton.on('click', function(){
-			Led.on();
-			Relay.off();
-
-		})
-		LockButton.on('click',function(){
-			Led.off();
-			Relay.on();
-
-		})
-
-	/*io.on('connection', function (socket) {
-		socket.emit('news', 'hi');
-		socket.on('event', function (data) {
 	
-			var message;
-
-			if (data == 0) {//unlock
-				// console.log("unlock");
-				Led.on();
-				Relay.off();
-				message = 'unlock LED 亮';
-
-				//LockContract.transfer
-			}
-			else {//lock
-				// console.log("lock");
-				Led.off();
-				Relay.on();
-				message = 'lock LED 滅';
-			}
-			socket.emit('log',message);
-			console.log(message);
-			
-		});
-	});
-
-
-		});
-	*/
 	})
 
 
