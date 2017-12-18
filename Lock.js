@@ -1,7 +1,7 @@
 
 var app = require('express')();
 var path = require('path')
-var server = require('http').createServer(app);
+var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var five = require("johnny-five");
 var TestRPC = require("ethereumjs-testrpc");
@@ -47,13 +47,13 @@ var board = new five.Board({
 
 var Led; 
 var Relay;
-//var server = app.listen(3000);
-/*
-server.listen(process.env.PORT || 3000, function () {
-	console.log('listening on *:3000');
-});
-*/
-server.listen(3000);
+// var server = app.listen(3000);
+
+// server.listen(process.env.PORT || 3000, function () {
+// 	console.log('listening on *:3000');
+// });
+
+// server.listen(3000);
 
 
 // ?a=address
@@ -193,7 +193,9 @@ app.get('/', function (req, res) {
 app.use(function (req, res) {
 	res.status(404).send('not found')
 })
-
+server.listen(process.env.PORT || 1336, function(){
+	console.log('listening on *:1336');
+});
  
 board.on("ready", function () {
 	console.log("board ready");
@@ -204,12 +206,23 @@ board.on("ready", function () {
 	// init
 	Led.on();
 	Relay.on();
-
+	// var tradeDone = 0;
 	io.on('connection', function (socket) {
 		socket.emit('news', 'hi');
+		
 		socket.on('End',function(t){
+				
 				Led.off();
+				
+				io.emit('seller',1);
+				// console.log("交易結束");
 			})
+		socket.on('buyer',function(t){
+			io.emit('tobuyer',1);
+		})
+		// socket.on('toseller',function(t){
+		// 	io.emit('num',1);
+		// })
 		socket.on('event', function (data) {
 	
 			var message;
@@ -222,7 +235,7 @@ board.on("ready", function () {
 
 				//LockContract.transfer
 			}
-			else {//lock
+			else{//lock
 				// console.log("lock");
 				Led.off();
 				Relay.on();
@@ -232,6 +245,8 @@ board.on("ready", function () {
 			console.log(message);
 			
 		});
+	
+
 	});
 
 });

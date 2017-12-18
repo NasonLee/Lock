@@ -15,6 +15,7 @@ var depositButton
 var withdraw
 var withdrawButton
 var logger
+var logtradestate
 // var five = require("johnny-five");
 // var board = new five.Board({
 // 	port: "/dev/cu.usbmodem1421",
@@ -73,6 +74,10 @@ function POST(url, data, callback, failback) {
 			});
 
 		}*/
+
+	function tradestate(input){
+		logtradestate.html(input + '\n' + logtradestate.html())
+	}		
 	function log(input) {
 		if (typeof input === 'object') {
 			input = JSON.stringify(input, null, 2)
@@ -97,21 +102,11 @@ $(function () {
 	depositButton = $('#depositButton')
 	withdraw = $('#withdraw')
 	withdrawButton = $('#withdrawButton')
+	logtradestate = $('#logtradestate')
 	
+	 
 	
 
-	// LockButton.on('click',function(){
-	// 	lock = 0;
-	// 	//tran();
-	// 	log("上鎖");
-	// 	console.log("lock");
-	// })
-	// UnlockButton.on('click',function(){
-	// 	lock = 1;
-	// 	//tran();
-	// 	log("開鎖");
-	// 	console.log("unlock");
-	// })
 	whoamiButton.on('click', function () {
 		// GET account?a=address
 		GET('./account?a=' + whoami.val(),
@@ -137,7 +132,7 @@ $(function () {
 		POST('./deposit?a=' + whoami.val() + '&e=' + deposit.val(), {},
 			function (res) {
 				log(res)
-				log('存款成功')
+				log('儲值成功')
 
 				// 觸發更新帳戶資料
 				whoamiButton.trigger('click')
@@ -177,8 +172,8 @@ $(function () {
 			function (res) {
 				// 更新活動紀錄
 				log(res)
-				log('轉帳成功')
-
+				log('付款成功')
+				
 				// 觸發更新帳戶資料
 				whoamiButton.trigger('click')
 			},
